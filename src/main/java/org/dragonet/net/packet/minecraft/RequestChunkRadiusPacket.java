@@ -19,37 +19,27 @@ import org.dragonet.net.inf.mcpe.NetworkChannel;
 import org.dragonet.proxy.utilities.io.PEBinaryReader;
 import org.dragonet.proxy.utilities.io.PEBinaryWriter;
 
-public class InteractPacket extends PEPacket {
+public class RequestChunkRadiusPacket extends PEPacket {
 
-    public byte action;
-    public long target;
+    public int radius;
 
     @Override
     public int pid() {
-        return PEPacketIDs.INTERACT_PACKET;
+        return PEPacketIDs.REQUEST_CHUNK_RADIUS_PACKET;
     }
 
     @Override
     public void encode() {
-        try {
-            setChannel(NetworkChannel.CHANNEL_WORLD_EVENTS);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            PEBinaryWriter writer = new PEBinaryWriter(bos);
-            writer.writeByte((byte) (this.pid() & 0xFF));
-            writer.writeByte(action);
-            writer.writeLong(target);
-            this.setData(bos.toByteArray());
-        } catch (IOException e) {
-        }
+        
     }
 
     @Override
     public void decode() {
         try {
+            setChannel(NetworkChannel.CHANNEL_ENTITY_SPAWNING);
             PEBinaryReader reader = new PEBinaryReader(new ByteArrayInputStream(this.getData()));
-            reader.readByte();
-            this.action = reader.readByte();
-            this.target = reader.readLong();
+            reader.readByte(); //PID
+            radius = reader.readInt();
             this.setLength(reader.totallyRead());
         } catch (IOException e) {
         }

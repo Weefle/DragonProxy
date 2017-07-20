@@ -62,6 +62,7 @@ public class PEDownstreamSession implements DownstreamSession<PEPacket>, ClientI
 
     @Override
     public void connect(String addr, int port) {
+        System.out.println("[" + upstream.getUsername() + "] Connecting to remote pocket server at [" + String.format("%s:%s", addr, port) + "] ");
         if (client != null) {
             upstream.onConnected(); // Clear the flags
             upstream.disconnect("ERROR! ");
@@ -173,7 +174,7 @@ public class PEDownstreamSession implements DownstreamSession<PEPacket>, ClientI
         }
 
         EncapsulatedPacket encapsulated = new EncapsulatedPacket();
-        encapsulated.buffer = Binary.appendBytes((byte) 0x8e, packet.getData());
+        encapsulated.buffer = Binary.appendBytes((byte) 0xfe, packet.getData());
         encapsulated.needACK = true;
         encapsulated.reliability = (byte) 2;
         encapsulated.messageIndex = 0;

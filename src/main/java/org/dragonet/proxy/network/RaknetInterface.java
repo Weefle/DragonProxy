@@ -122,7 +122,7 @@ public class RaknetInterface implements ServerInstance {
         }
 
         EncapsulatedPacket encapsulated = new EncapsulatedPacket();
-        encapsulated.buffer = Binary.appendBytes((byte)0x8e, packet.getData());
+        encapsulated.buffer = Binary.appendBytes((byte) 0xfe, packet.getData());
         encapsulated.needACK = true;
         encapsulated.reliability = (byte) 2;
         encapsulated.messageIndex = 0;

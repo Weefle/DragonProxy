@@ -26,6 +26,7 @@ import org.dragonet.proxy.network.RaknetInterface;
 import org.dragonet.proxy.configuration.Lang;
 import org.dragonet.proxy.configuration.ServerConfig;
 import org.dragonet.proxy.utilities.Versioning;
+import org.dragonet.proxy.utilities.Terminal;
 import org.dragonet.proxy.commands.CommandRegister;
 
 import org.mcstats.Metrics;
@@ -39,7 +40,7 @@ public class DragonProxy {
     }
     public final static boolean IS_RELEASE = false; //DO NOT CHANGE, ONLY ON PRODUCTION
 
-	@Getter
+    @Getter
     private final Logger logger = Logger.getLogger("DragonProxy");
 
     private final TickerThread ticker = new TickerThread(this);
@@ -77,7 +78,6 @@ public class DragonProxy {
     private boolean isDebug = false;
 
     public void run(String[] args) {
-
         //Need to initialize config before console
         try {
             File fileConfig = new File("config.yml");
@@ -102,6 +102,11 @@ public class DragonProxy {
         //Initialize console
         console = new ConsoleManager(this);
         console.startConsole();
+		
+	//Put at the top instead
+	if(!IS_RELEASE) {
+		logger.warning(Terminal.YELLOW + "This is a development build. It may contain bugs. Do not use on production. !!\n" + Terminal.WHITE);
+	}
 
 	//Check for startup arguments
         checkArguments(args);
@@ -122,13 +127,13 @@ public class DragonProxy {
             ex.printStackTrace();
             return;
         }
-		//Load some more stuff
+	//Load some more stuff
         logger.info(lang.get(Lang.INIT_LOADING, Versioning.RELEASE_VERSION));
         logger.info(lang.get(Lang.INIT_MC_PC_SUPPORT, Versioning.MINECRAFT_PC_VERSION));
         logger.info(lang.get(Lang.INIT_MC_PE_SUPPORT, Versioning.MINECRAFT_PE_VERSION));
         authMode = config.getMode().toLowerCase();
         if(!authMode.equals("cls") && !authMode.equals("online") && !authMode.equals("offline")){
-            logger.severe("Invalid login 'mode' option detected, must be cls/online/offline, you set it to '" + authMode + "'! ");
+            logger.severe("Invalid login 'mode' option detected, must be cls/online/offline. You set it to '" + authMode + "'! ");
             return;
         }
 		
@@ -141,8 +146,6 @@ public class DragonProxy {
                 metrics = new ServerMetrics(this);
                 metrics.start();
             } catch (IOException ex) { }
-        } else {
-            logger.info("This is a development build. It may contain bugs. Do not use on production\n");
         }
 
         //Create thread pool
@@ -177,7 +180,7 @@ public class DragonProxy {
         for(String arg : args){
             if(arg.toLowerCase().contains("--debug")){
                 isDebug = true;
-                logger.info("--- Proxy running in debug mode ---");
+                logger.info(Terminal.CYAN + "Proxy running in debug mode.");
             }
         }
     }
@@ -192,6 +195,7 @@ public class DragonProxy {
             Thread.sleep(2000); //Wait for all clients disconnected
         } catch (Exception e) {
         }
+        System.out.println("Goodbye!");
         System.exit(0);
     }
 }

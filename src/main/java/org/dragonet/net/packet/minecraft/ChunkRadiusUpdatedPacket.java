@@ -12,30 +12,20 @@
  */
 package org.dragonet.net.packet.minecraft;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.dragonet.net.inf.mcpe.NetworkChannel;
+import org.dragonet.proxy.utilities.io.PEBinaryReader;
 import org.dragonet.proxy.utilities.io.PEBinaryWriter;
 
-public class ChangeDimensionPacket extends PEPacket {
+public class ChunkRadiusUpdatedPacket extends PEPacket {
 
-    public byte dimension;
-    public float x;
-    public float y;
-    public float z;
-    public byte unknown;
+    public int radius;
 
-    public ChangeDimensionPacket(byte dimension, int x, int y, int z, byte unknown) {
-        this.dimension = dimension;
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.unknown = unknown;
-    }
-    
     @Override
     public int pid() {
-        return PEPacketIDs.CHANGE_DIMENSION_PACKET;
+        return PEPacketIDs.CHUNK_RADIUS_UPDATED_PACKET;
     }
 
     @Override
@@ -44,12 +34,7 @@ public class ChangeDimensionPacket extends PEPacket {
             setChannel(NetworkChannel.CHANNEL_WORLD_EVENTS);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             PEBinaryWriter writer = new PEBinaryWriter(bos);
-            writer.writeByte((byte) (this.pid() & 0xFF));
-            writer.writeByte(dimension);
-            writer.writeFloat(x);
-            writer.writeFloat(y);
-            writer.writeFloat(z);
-            writer.writeByte(unknown);
+            writer.writeInt(this.radius);
             this.setData(bos.toByteArray());
         } catch (IOException e) {
         }
@@ -57,6 +42,7 @@ public class ChangeDimensionPacket extends PEPacket {
 
     @Override
     public void decode() {
+        
     }
 
 }

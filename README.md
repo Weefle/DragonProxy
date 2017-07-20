@@ -1,21 +1,22 @@
 ![Logo](http://dragonet.org/assets/img/Dragonet.png)
 
 # DragonProxy [![Build status indicator](https://circleci.com/gh/DragonetMC/DragonProxy/tree/master.svg?style=badge)](https://circleci.com/gh/DragonetMC/DragonProxy/tree/master)
+```html
+Currently updating to 0.15!
+```
+Wanna donate to help us? Go to http://dragonet.org/donate.php
 
 A proxy for **Minecraft: Pocket Edition/Windows 10 Edition** connecting to multiple **Minecraft PC/Mac or Pocket Edition** servers.
-It works like BungeeCord but much more powerful than that. ;) 
-
-**Want the latest experimental features? Check out the [dev branch](https://github.com/DragonetMC/DragonProxy/tree/dev)!**
+It works like BungeeCord but much more powerful than that. ;)
 
 You can switch between servers even between PE and PC servers by using command `/server blah`, you can change the default prefix `/` if it conflicts with BungeeCord one. 
+
+Video by **[@MrPowerGamerBR](https://github.com/MrPowerGamerBR)** (On an older version): https://www.youtube.com/watch?v=oRSKQMzZYDE
 
 ![Screenshot](https://raw.githubusercontent.com/DragonetMC/DragonProxy/master/screenshots/TheArchon.png)
 
 ## Installation
 [![Build status indicator](https://circleci.com/gh/DragonetMC/DragonProxy/tree/master.svg?style=badge)](https://circleci.com/gh/DragonetMC/DragonProxy/tree/master) [Download from CircleCI](https://circleci.com/gh/DragonetMC/DragonProxy/tree/master) - You must be logged in with GitHub to download a build.
-
-## Compiling
-Please see the **Compiling.md** file
 
 #### Supported Remote Server Types
 - For PC/Mac Servers: `Bukkit`/`Spigot`/`Glowstone`/`SpongeVanilla`/`BungeeCord`
@@ -31,10 +32,7 @@ Please see the **Usage.md** file.
 
 
 ### Using IntelliJ IDEA
-
-* Download and install [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/#chooseYourEdition) (free download)
-* Just "open" the project in **IntelliJ**, it should work and compile seamlessly
-* Add "Lombok Plugin" to add first class support for Lombok annotations in **IntelliJ**
+Updated tutorial coming soon to the wiki
 
 ## Libraries Used
 * RakLib Port by the Nukkit project @ [Site](http://nukkit.cn)
